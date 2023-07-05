@@ -1,0 +1,21 @@
+.App {
+  display: flex;
+}
+.toast-message {
+  /* background: darkblue; */
+  color: #fff;
+  font-size: 2rem;
+  width: 100vw;
+  height: 100px;
+  padding: 30px 20px;
+  margin-right: 20px;
+}
+.img-btn {
+  min-width: 70vw;
+  min-height: 200px;
+  background-color: transparent;
+  border: none;
+  font-size: 30px;
+  color: rgba(0, 0, 0, 0.6);
+  font-weight: 300;
+}

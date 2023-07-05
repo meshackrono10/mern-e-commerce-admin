@@ -1,0 +1,18 @@
+.add-product-input-div option {
+  font-size: 1rem;
+  height: 50px;
+}
+.add-subCat-dropdown {
+  width: 100%;
+  padding: 20px;
+  margin-bottom: 30px;
+  border-radius: 15px;
+  font-size: 20px;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.7);
+  outline-width: 0;
+  color: rgba(0, 0, 0, 0.7);
+}
+.add-subCat-dropdown option {
+  padding: 5px;
+}

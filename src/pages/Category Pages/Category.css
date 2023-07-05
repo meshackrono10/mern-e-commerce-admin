@@ -1,0 +1,118 @@
+.ParentCat_container {
+  width: 100vw;
+  height: 100vh;
+  padding: 20px;
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.cant_main-data {
+  display: flex;
+  width: 100%;
+  margin-bottom: 50px;
+}
+.cant_main-data img {
+  width: 700px;
+  object-fit: contain;
+  aspect-ratio: 30/13;
+}
+.cant_main-data-text {
+  font-size: 2.5rem;
+  font-weight: 600;
+  padding: 50px;
+  color: rgba(0, 0, 0, 0.7);
+  text-transform: capitalize;
+}
+.cant_main-data-text p {
+  margin-top: 50px;
+}
+.cant_main-data-text button {
+  padding: 20px 60px;
+  font-size: 1.5rem;
+  margin-top: 100px;
+  margin-right: 50px;
+  color: #2d47b9dc;
+  background-color: #fff;
+  outline-color: #2d47b9dc;
+  border: 2px solid rgba(0, 0, 0, 0.15);
+  border-radius: 5px;
+  transition: 0.2s ease-in-out;
+}
+.cant_main-data-text button:hover {
+  background-color: #2d47b99d;
+  color: white;
+  cursor: pointer;
+}
+.cat-subCat h4 {
+  font-size: 30px;
+  text-transform: uppercase;
+}
+.cat-subCat-dat {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
+  padding: 15px 0 15px 15px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  background-color: #fff;
+  margin-left: -10px;
+}
+.cat-subCat-dat button {
+  padding: 20px 60px;
+  font-size: 1.5rem;
+  margin-right: 50px;
+  /* background-color: transparent; */
+  border: none;
+  color: #2d47b9dc;
+  background-color: rgba(0, 0, 0, 0.05);
+  height: 100%;
+}
+.cat-subCat-dat img {
+  width: 50px;
+  border-radius: 75%;
+}
+.cat-subCat p {
+  font-size: 1.5rem;
+  text-transform: capitalize;
+  text-align: start;
+}
+.drop-down {
+  padding: 20px 60px;
+  text-transform: capitalize;
+  font-size: 1.5rem;
+  margin-top: 100px;
+  margin-right: 50px;
+  color: #2d47b9dc;
+  background-color: #fff;
+  outline-width: #2d47b9dc;
+  border: 2px solid rgba(0, 0, 0, 0.15);
+  border-radius: 5px;
+  transition: 0.2s ease-in-out;
+}
+.drop-down:hover {
+  background-color: #2d47b99d;
+  color: white;
+  cursor: pointer;
+}
+.category-buttons {
+  width: 100%;
+}
+.category-drop-down {
+  padding: 20px 60px;
+  font-size: 1.5rem;
+  color: #fff;
+  background-color: #2d47b9dc;
+  outline-width: 0;
+  border: none;
+  border-radius: 5px;
+  transition: 0.2s ease-in-out;
+}
+/* .toast-message {
+  color: #fff;
+  font-size: 2rem;
+  width: 100vw;
+  height: 100px;
+  padding: 30px 20px;
+} */

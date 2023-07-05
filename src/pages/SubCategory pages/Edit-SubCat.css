@@ -1,0 +1,45 @@
+.edit-subCat {
+  display: flex;
+  width: 100vw;
+  background-color: rgba(0, 0, 0, 0.05);
+  justify-content: center;
+  align-items: center;
+}
+.edit-subCat label {
+  text-align: start;
+  font-size: 40px;
+  font-weight: 300 !important;
+  letter-spacing: 0.5px;
+}
+.edit-subCat input {
+  font-size: 30px;
+  display: flex;
+  padding: 20px !important;
+  width: 100%;
+  outline-color: #32be8f;
+  margin-top: 30px;
+  border: 3px solid #2d47b9dc;
+}
+.editCategory-text {
+  width: 40vw;
+}
+.editCategory-text button {
+  width: 100%;
+}
+.category-drop-down-div {
+  /* margin-bottom: 100px;
+  margin-right: 20px; */
+  width: 80%;
+}
+.editCategory-text main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.edit-category-drop-down {
+  border: 1px solid black;
+  padding: 15px;
+  font-size: 30px;
+  margin-top: 30px;
+  background-color: #fff;
+}

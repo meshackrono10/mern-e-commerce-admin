@@ -1,0 +1,15 @@
+export { default as Users } from "./User Pages/Users";
+export { default as User } from "./User Pages/User";
+export { default as Orders } from "./Orders Pages/Orders";
+export { default as Order } from "./Orders Pages/Order";
+export { default as Categories } from "./Category Pages/Categories";
+export { default as Products } from "./Product Pages/Products";
+export { default as AddProduct } from "./Product Pages/AddProduct";
+export { default as AddCategory } from "./Category Pages/AddCategory";
+export { default as EditProduct } from "./Product Pages/EditProduct";
+export { default as AddSubCat } from "./SubCategory pages/AddSabCat";
+export { default as Dashboard } from "./Dashboard";
+export { default as Login } from "./login/Login";
+export { default as Category } from "./Category Pages/Category";
+export { default as EditCategory } from "./Category Pages/EditCategory";
+export { default as EditSubCat } from "./SubCategory pages/Edit-SubCat";

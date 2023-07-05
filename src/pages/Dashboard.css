@@ -1,0 +1,68 @@
+.dashboard-parent {
+  background-color: #f5f5f5;
+  width: 100%;
+  overflow-y: hidden !important;
+  padding: 20px;
+}
+.dashboard-parent-main {
+  display: flex;
+  flex-wrap: wrap;
+}
+.dashboard-parent-card {
+  width: 500px;
+  height: 200px;
+  border-radius: 20px;
+  background-color: #2d47b9ea;
+  color: #fff;
+  padding: 20px;
+  margin: 15px;
+}
+.dashboard-parent-card h2 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+.dashboard-parent-card p {
+  font-size: 3rem;
+}
+.dashboard-parent-card:hover {
+  background-color: #2d47b9d5;
+}
+.dashboard-parent-transactions {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  width: 100vw;
+  background-color: #2d47b9ea;
+  color: #fff;
+  border-radius: 15px;
+  text-align: center;
+}
+.datagrid {
+  background-color: #2d47b9ea;
+}
+.white-text {
+  color: #fff;
+  font-size: 1.5rem;
+}
+.white-header {
+  color: #fff;
+  font-size: 2rem;
+}
+.dashboard-parent-customers {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  width: 100vw;
+  background-color: #2d47b9ea;
+  color: #fff;
+  border-radius: 15px;
+  text-align: center;
+}
+
+.left {
+  padding: 40px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
