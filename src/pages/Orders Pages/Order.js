@@ -47,7 +47,7 @@ function Order(props) {
     const getOrder = () => {
       axios({
         method: "get",
-        url: `http://localhost:5000/api/orders/find/order/${orderId}`,
+        url: `https://t-brand-api.onrender.com/api/orders/find/order/${orderId}`,
       }).then((response) => {
         setOrder(response.data);
         console.log(response.data);
