@@ -44,14 +44,6 @@ const Login = () => {
   if (isLoading) {
     <Spinner />;
   }
-  useEffect(() => {
-    if (userInfo) {
-      toast.success("You have successfully locked in! 😇 😇", {
-        className: "toast-message",
-      });
-      navigate("/");
-    }
-  }, [userInfo, isLoading, navigate, loginSubmit]);
 
   return (
     <div className="login-content">
