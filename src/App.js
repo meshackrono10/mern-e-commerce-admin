@@ -43,9 +43,15 @@ const paths = [
 ];
 
 function App() {
-  const userInfo = localStorage.getItem("userInfo");
-  const admin = JSON.parse(userInfo); // Fix the typo here
-  const isLockedIn = admin.isAdmin;
+const userInfo = localStorage.getItem('userInfo');
+  const admin = JSON.parse(userInfo);
+  const isLockedIn = admin?.isAdmin;
+
+  const Layout = () => {
+    if (!userInfo || !isLockedIn) {
+      return <Login />;
+    }
+
 
   const Layout = () => {
     if (!userInfo || !isLockedIn) {
