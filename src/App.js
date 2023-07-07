@@ -44,7 +44,7 @@ const paths = [
 
 function App() {
   const userInfo = localStorage.getItem("userInfo");
-  const admin = JSON.purse(userInfo)
+  const admin = JSON.parse(userInfo); // Fix the typo here
   const isLockedIn = admin.isAdmin;
 
   const Layout = () => {
