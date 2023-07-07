@@ -44,7 +44,8 @@ const paths = [
 
 function App() {
   const userInfo = localStorage.getItem("userInfo");
-  const isLockedIn = userInfo && userInfo.isAdmin;
+  const admin = JSON.purse(userInfo)
+  const isLockedIn = admin.isAdmin;
 
   const Layout = () => {
     if (!userInfo || !isLockedIn) {
