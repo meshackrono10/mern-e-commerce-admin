@@ -21,12 +21,32 @@ function AddSubCat() {
   const types = ["image/png", "image/jpeg", "image/jpg"];
   const [name, setName] = useState("");
   const [categoryId, setCategoryId] = useState("");
+  const [widget, setWidget] = useState(null);
+
 
   const dispatch = useDispatch();
   const [addSubCat, { isLoading, isError }] = useAddSubCatMutation();
   // Get single category
   const [categoryDataValue, setCategoryDataValue] = useState("");
   const { data: categories = [], refetch } = useGetCatQuery();
+
+  const showWidget = () => {
+    const uploadWidget = window.cloudinary.createUploadWidget(
+      {
+        cloudName: process.env.REACT_APP_CLOUDINARY_CLOUD_NAME,
+        uploadPreset: process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET,
+      },
+      (error, result) => {
+        if (!error && result && result.event === 'success') {
+          setUrl(result.info.url);
+          console.log(result.info.url);
+        }
+      }
+    );
+
+    setWidget(uploadWidget);
+    uploadWidget.open();
+  };
 
   const handleImageChange = async (event) => {
     let selectedFile = event.target.files[0];
@@ -123,15 +143,12 @@ function AddSubCat() {
           <Card className="add-product-form-card">
             <div className="add-category-image-div">
               <div className="category-image-div">
-                {url ? (
-                  <p>Upload Image</p> || <img src={url} alt="preview" />
+              {url ? (
+                  <>
+                   <img src={url} alt="preview" />
+                  </>
                 ) : (
-                  <ImageUploader
-                    url={url}
-                    setUrl={setUrl}
-                    error={error}
-                    setError={setError}
-                  />
+                  <button className="add-button" onClick={showWidget}>Upload Image</button>
                 )}
               </div>
             </div>

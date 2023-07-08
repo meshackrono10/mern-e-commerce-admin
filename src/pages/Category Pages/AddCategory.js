@@ -95,8 +95,7 @@ function AddCategory() {
               <div className="category-image-div">
                 {url ? (
                   <>
-                    <p>Upload Image</p>
-                    <img src={url} alt="preview" />
+                  <img src={url} alt="preview" />
                   </>
                 ) : (
                   <button className="add-button" onClick={showWidget}>Upload Image</button>
