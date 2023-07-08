@@ -18,28 +18,29 @@ const Login = () => {
   const [login, { isLoading, isError }] = useLoginMutation();
   const { userInfo } = useSelector((state) => state.auth);
 
-  const loginSubmit = async (e) => {
-    e.preventDefault();
-    if (!email || !password) {
-      toast.error("please provide email or password", {
-        className: "toast-message",
-      });
-    }
-    if (isError) {
-      toast.error(isError, {
-        className: "toast-message",
-      });
-    }
-    try {
-      const res = await login({ email, password }).unwrap();
-      dispatch(setCredentials({ ...res }));
-      navigate("/");
-    } catch (error) {
-      toast.error(error, {
-        className: "toast-message",
-      });
-    }
-  };
+const loginSubmit = async (e) => {
+  e.preventDefault();
+  if (!email || !password) {
+    toast.error("Please provide email or password", {
+      className: "toast-message",
+    });
+  }
+  if (isError) {
+    toast.error(isError, {
+      className: "toast-message",
+    });
+  }
+  try {
+    const res = await login({ email, password }).unwrap();
+    dispatch(setCredentials({ ...res }));
+    navigate("/");
+  } catch (error) {
+    toast.error(error, {
+      className: "toast-message",
+    });
+  }
+};
+
 
   if (isLoading) {
     <Spinner />;
