@@ -101,7 +101,10 @@ function Products() {
             </Col>
           </Row>
           <hr />
-          <Row className="products-row">
+          <Row style={{
+                display: "flex",
+                flexWrap: "wrap",
+              }} className="products-row">
             <Col
               style={{
                 display: "flex",

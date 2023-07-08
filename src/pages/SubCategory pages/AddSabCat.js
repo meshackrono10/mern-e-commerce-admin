@@ -135,7 +135,7 @@ function AddSubCat() {
       <Row>
         <Col lg={2}>{/* <Sidebar /> */}</Col>
         <Col className="add-category-content" lg={10}>
-          <h4>Add Category</h4>
+          <h4>Add Sub Category</h4>
           <p>
             Please fill in the Sub category details in the form below to add a
             new category.
