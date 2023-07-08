@@ -22,8 +22,8 @@ function AddCategory() {
   const showWidget = () => {
     const uploadWidget = window.cloudinary.createUploadWidget(
       {
-        cloudName: REACT_APP_CLOUDINARY_CLOUD_NAME,
-        uploadPreset: REACT_APP_CLOUDINARY_UPLOAD_PRESET,
+        cloudName: process.env.REACT_APP_CLOUDINARY_CLOUD_NAME,
+        uploadPreset: process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET,
       },
       (error, result) => {
         if (!error && result && result.event === 'success') {
