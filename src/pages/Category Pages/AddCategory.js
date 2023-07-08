@@ -88,11 +88,11 @@ function AddCategory() {
           </p>
           <Card className="add-product-form-card">
             <div className="add-category-image-div">
-              <div className="category-image-div">
+              <div onClick={showWidget} className="category-image-div">
                 {url ? (
-                   <img src={url} alt="preview" />
+                  <p >Upload Image</p> || <img src={url} alt="preview" />
                 ) : (
-                  <p onClick={showWidget}>Upload Image</p>
+                  ""
                   )}
               </div>
             </div>
