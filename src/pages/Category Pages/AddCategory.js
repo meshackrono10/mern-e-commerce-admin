@@ -17,7 +17,25 @@ function AddCategory() {
   const [catName, setCatName] = useState("");
   const [url, setUrl] = useState([]);
   const [error, setError] = useState();
+  const [widget, setWidget] = useState(null);
 
+  const showWidget = () => {
+    const uploadWidget = window.cloudinary.createUploadWidget(
+      {
+        cloudName: REACT_APP_CLOUDINARY_CLOUD_NAME,
+        uploadPreset: REACT_APP_CLOUDINARY_UPLOAD_PRESET,
+      },
+      (error, result) => {
+        if (!error && result && result.event === 'success') {
+          setUrl(result.info.url)
+          console.log(result.info.url);
+        }
+      }
+    );
+
+    setWidget(uploadWidget);
+    uploadWidget.open();
+  };
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [addCat, { isLoading }] = useAddCatMutation();
@@ -75,13 +93,8 @@ function AddCategory() {
                 {url ? (
                   <p>Upload Image</p> || <img src={url} alt="preview" />
                 ) : (
-                  <ImageUploader
-                    url={url}
-                    setUrl={setUrl}
-                    error={error}
-                    setError={setError}
-                  />
-                )}
+                  <button onClick={showWidget}>Upload Image</button>
+                  )}
               </div>
             </div>
 
