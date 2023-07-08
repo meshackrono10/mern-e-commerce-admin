@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Card, Col, Form, Row } from "react-bootstrap";
+import { Card, Col, Row } from "react-bootstrap";
 import "./AddCategory.css";
 import { useAddCatMutation } from "../../slices/category/catApiSlice";
 import { setCategory } from "../../slices/category/catSlice";
@@ -10,13 +10,14 @@ import { useNavigate } from "react-router-dom";
 
 function AddCategory() {
   const [loading, setLoading] = useState(false);
-  const [imagePreview, setImagePreview] = useState("");
-  const [image, setImage] = useState(null);
-  const imageButtonRef = useRef();
   const [catName, setCatName] = useState("");
-  const [url, setUrl] = useState([]);
-  const [error, setError] = useState();
+  const [url, setUrl] = useState("");
+  const [error, setError] = useState("");
   const [widget, setWidget] = useState(null);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [addCat, { isLoading }] = useAddCatMutation();
 
   const showWidget = () => {
     const uploadWidget = window.cloudinary.createUploadWidget(
@@ -26,7 +27,7 @@ function AddCategory() {
       },
       (error, result) => {
         if (!error && result && result.event === 'success') {
-          setUrl(result.info.url)
+          setUrl(result.info.url);
           console.log(result.info.url);
         }
       }
@@ -35,12 +36,10 @@ function AddCategory() {
     setWidget(uploadWidget);
     uploadWidget.open();
   };
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const [addCat, { isLoading }] = useAddCatMutation();
 
   const addCategory = async (event) => {
     event.preventDefault();
+
     try {
       if (!catName || !url) {
         toast.error("Please provide a category name and select an image.", {
@@ -48,24 +47,29 @@ function AddCategory() {
         });
         return;
       }
+
+      setLoading(true);
+
       const res = await addCat({
         catName: catName,
-        image: url, // Access the first element of the url array
+        image: url,
       }).unwrap();
 
       dispatch(setCategory({ ...res }));
       navigate("/categories");
-      // Reset form values
+
       setCatName("");
-      setImage(null);
-      setImagePreview("");
-      setUrl([]);
-      imageButtonRef.current.value = ""; // Reset file input
+      setUrl("");
+      setError("");
+      setLoading(false);
 
       toast.success("Category added successfully!", {
         className: "toast-message",
       });
     } catch (error) {
+      setLoading(false);
+      setError(error.message);
+
       toast.error(error.message, {
         className: "toast-message",
       });
@@ -88,12 +92,15 @@ function AddCategory() {
           </p>
           <Card className="add-product-form-card">
             <div className="add-category-image-div">
-              <div onClick={showWidget} className="category-image-div">
+              <div className="category-image-div">
                 {url ? (
-                  <p >Upload Image</p> || <img src={url} alt="preview" />
+                  <>
+                    <p>Upload Image</p>
+                    <img src={url} alt="preview" />
+                  </>
                 ) : (
-                  ""
-                  )}
+                  <button className="add-button" onClick={showWidget}>Upload Image</button>
+                )}
               </div>
             </div>
 
