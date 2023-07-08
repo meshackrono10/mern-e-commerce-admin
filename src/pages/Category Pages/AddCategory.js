@@ -7,7 +7,6 @@ import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { Spinner } from "../../components";
 import { useNavigate } from "react-router-dom";
-import ImageUploader from "../../components/cloudinary/ImageUploader";
 
 function AddCategory() {
   const [loading, setLoading] = useState(false);
@@ -91,9 +90,9 @@ function AddCategory() {
             <div className="add-category-image-div">
               <div className="category-image-div">
                 {url ? (
-                  <p>Upload Image</p> || <img src={url} alt="preview" />
+                   <img src={url} alt="preview" />
                 ) : (
-                  <button onClick={showWidget}>Upload Image</button>
+                  <p onClick={showWidget}>Upload Image</p>
                   )}
               </div>
             </div>
