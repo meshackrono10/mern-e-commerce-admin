@@ -33,7 +33,10 @@ const loginSubmit = async (e) => {
   try {
     const res = await login({ email, password }).unwrap();
     dispatch(setCredentials({ ...res }));
-    navigate("/");
+    if(res) {
+      navigate("/");
+    }
+    
   } catch (error) {
     toast.error(error, {
       className: "toast-message",
