@@ -45,29 +45,25 @@ const paths = [
 function App() {
   const userInfo = localStorage.getItem('userInfo');
   const admin = JSON.parse(userInfo);
-  const isLockedIn = admin?.isAdmin === true;
+  const isLockedInAsAdmin = admin?.isAdmin === true;
 
-  const Layout = () => {
-    if (!userInfo || !isLockedIn) {
-      return <Login />;
+  const PrivateRoute = ({ element, ...rest }) => {
+    if (!userInfo || !isLockedInAsAdmin) {
+      return <Navigate to="/login" />;
     }
 
-    return (
-      <>
-        <Sidebar />
-        <Routes>
-          {paths.map(({ path, element }) => (
-            <Route key={path} path={path} element={element} />
-          ))}
-        </Routes>
-      </>
-    );
+    return <Route {...rest} element={element} />;
   };
 
   return (
     <Router>
       <div className="App">
-        <Layout />
+        {isLockedInAsAdmin && <Sidebar />}
+        <Routes>
+          {paths.map(({ path, element }) => (
+            <PrivateRoute key={path} path={path} element={element} />
+          ))}
+        </Routes>
         <ToastContainer
           position="top-center"
           autoClose={5000}
