@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./Login.css";
 import avatarImage from "../../Assets/avatar.svg";
 import { useDispatch, useSelector } from "react-redux";
@@ -18,35 +18,40 @@ const Login = () => {
   const [login, { isLoading, isError }] = useLoginMutation();
   const { userInfo } = useSelector((state) => state.auth);
 
-const loginSubmit = async (e) => {
-  e.preventDefault();
-  if (!email || !password) {
-    toast.error("Please provide email or password", {
-      className: "toast-message",
-    });
-  }
-  if (isError) {
-    toast.error(isError, {
-      className: "toast-message",
-    });
-  }
-  try {
-    const res = await login({ email, password }).unwrap();
-    dispatch(setCredentials({ ...res }));
-    if(res) {
-      navigate("/");
+  const loginSubmit = async (e) => {
+    e.preventDefault();
+    if (!email || !password) {
+      toast.error("Please provide email or password", {
+        className: "toast-message",
+      });
+      return;
     }
-    
-  } catch (error) {
-    toast.error(error, {
-      className: "toast-message",
-    });
-  }
-};
-
+    if (isError) {
+      toast.error(isError, {
+        className: "toast-message",
+      });
+      return;
+    }
+    try {
+      const res = await login({ email, password }).unwrap();
+      dispatch(setCredentials({ ...res }));
+      if (res) {
+        navigate("/");
+      }
+    } catch (error) {
+      toast.error(error, {
+        className: "toast-message",
+      });
+    }
+  };
 
   if (isLoading) {
-    <Spinner />;
+    return <Spinner />;
+  }
+
+  if (userInfo) {
+    navigate("/"); // Redirect to home page if user info exists (logged in)
+    return null; // Return null to prevent rendering the login form again
   }
 
   return (

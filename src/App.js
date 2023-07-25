@@ -1,5 +1,10 @@
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate,
+} from "react-router-dom";
 
 import {
   Users,
@@ -22,6 +27,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Sidebar from "./components/sidebar/Sidebar";
 import Product from "./pages/Product Pages/Product";
+import { useEffect, useState } from "react";
 
 const paths = [
   { path: "/login", element: <Login /> },
@@ -88,10 +94,15 @@ const paths = [
 
   // { path: "*", element: <NotFound /> },
 ];
+
 function App() {
-  const userInfo = localStorage.getItem("userInfo");
-  const admin = JSON.parse(userInfo);
-  const isLockedInAsAdmin = admin?.isAdmin === true;
+  const [isLockedInAsAdmin, setIsLockedInAsAdmin] = useState(false); // State to track admin login status
+
+  useEffect(() => {
+    const userInfo = localStorage.getItem("userInfo");
+    const admin = JSON.parse(userInfo);
+    setIsLockedInAsAdmin(admin?.isAdmin === true); // Update the state based on admin status
+  }, []);
 
   const Layout = () => {
     return (
@@ -108,23 +119,27 @@ function App() {
 
   return (
     <Router>
-      <div className="App">
-        {!isLockedInAsAdmin ? <Login /> : <Layout />}
-        <ToastContainer
-          position="top-center"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="colored"
-          className="toast-message"
-          style={{ width: "10vw" }}
-        />
-      </div>
+      {!isLockedInAsAdmin ? ( // Use a conditional operator to show content if not locked in
+        <div className="App">
+          <Layout />
+          <ToastContainer
+            position="top-center"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="colored"
+            className="toast-message"
+            style={{ width: "10vw" }}
+          />
+        </div>
+      ) : (
+        <Navigate to="/login" /> // Redirect to login page if locked in
+      )}
     </Router>
   );
 }
