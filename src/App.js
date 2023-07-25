@@ -22,6 +22,8 @@ import {
 } from './pages';
 import Sidebar from './components/sidebar/Sidebar';
 import Product from './pages/Product Pages/Product';
+import { Navigate } from "react-router-dom";
+
 
 const paths = [
   { path: '/login', element: <Login /> },
