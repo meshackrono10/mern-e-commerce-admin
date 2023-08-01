@@ -1,11 +1,11 @@
-import logo from "./logo.svg";
+import { CircularProgress } from "@material-ui/core";
 import "./Spinner.css";
 
 function Spinner() {
   return (
     <div className="spinner">
       <header className="spinner-header">
-        <img src={logo} className="spinner-logo" alt="logo" />
+        <CircularProgress />
         <p>Loading ......</p>
       </header>
     </div>

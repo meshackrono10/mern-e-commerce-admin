@@ -1,10 +1,5 @@
 import "./App.css";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Navigate,
-} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import {
   Users,
@@ -27,117 +22,329 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Sidebar from "./components/sidebar/Sidebar";
 import Product from "./pages/Product Pages/Product";
-import { useEffect, useState } from "react";
-
-const paths = [
-  { path: "/login", element: <Login /> },
-  {
-    path: "/",
-    element: <Dashboard />,
-  },
-  {
-    path: "/users",
-    element: <Users />,
-  },
-  {
-    path: "/users/:userId",
-    element: <User />,
-  },
-  {
-    path: "/orders",
-    element: <Orders />,
-  },
-  {
-    path: "/orders/:orderId",
-    element: <Order />,
-  },
-  {
-    path: "/categories",
-    element: <Categories />,
-  },
-  {
-    path: "/categories/add",
-    element: <AddCategory />,
-  },
-  {
-    path: "/category/:id",
-    element: <Category />,
-  },
-  {
-    path: "/edit-category/:id",
-    element: <EditCategory />,
-  },
-  {
-    path: "/add-sub-category",
-    element: <AddSubCat />,
-  },
-  {
-    path: "/category/:id/edit-sub-category/:subCatId",
-    element: <EditSubCat />,
-  },
-  {
-    path: "/products",
-    element: <Products />,
-  },
-  {
-    path: "/product/:id",
-    element: <Product />,
-  },
-  {
-    path: "/products/add",
-    element: <AddProduct />,
-  },
-  {
-    path: "/products/edit/:id",
-    element: <EditProduct />,
-  },
-
-  // { path: "*", element: <NotFound /> },
-];
+import ProtectedRoute from "./components/protectRoutes/ProtectRoutes";
 
 function App() {
-  const userInfo = localStorage.getItem("userInfo");
-  const admin = JSON.parse(userInfo);
-  const isLockedInAsAdmin = admin?.isAdmin === true;
-
-  const Layout = () => {
-    return (
-      <>
-        <Sidebar />
-        <Routes>
-          {paths.map(({ path, element }) => (
-            <Route key={path} path={path} element={element} />
-          ))}
-        </Routes>
-      </>
-    );
-  };
-
   return (
     <Router>
-        <div className="App">
-          {isLockedInAsAdmin ? (
-          <Layout />
-        ) : (
-          // Redirect to the login page if not locked in as admin
-          <Navigate to="/login" />
-        )}
-          <ToastContainer
-            position="top-center"
-            autoClose={5000}
-            hideProgressBar={false}
-            newestOnTop={false}
-            closeOnClick
-            rtl={false}
-            pauseOnFocusLoss
-            draggable
-            pauseOnHover
-            theme="colored"
-            className="toast-message"
-            style={{ width: "10vw" }}
+      <div className="App">
+        <Sidebar />
+        <Routes>
+          <Route path="/login" element={<Login />} exact />
+
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
           />
-        </div>
-     
+
+          <Route
+            path="/users"
+            element={
+              <ProtectedRoute>
+                <Users />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/users/:userId"
+            element={
+              <ProtectedRoute>
+                <User />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/orders"
+            element={
+              <ProtectedRoute>
+                <Orders />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/orders/:orderId"
+            element={
+              <ProtectedRoute>
+                <Order />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/categories"
+            element={
+              <ProtectedRoute>
+                <Categories />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/categories/add"
+            element={
+              <ProtectedRoute>
+                <AddCategory />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/category/:id"
+            element={
+              <ProtectedRoute>
+                <Category />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/edit-category/:id"
+            element={
+              <ProtectedRoute>
+                <EditCategory />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/add-sub-category"
+            element={
+              <ProtectedRoute>
+                <AddSubCat />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/category/:id/edit-sub-category/:subCatId"
+            element={
+              <ProtectedRoute>
+                <EditSubCat />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/products"
+            element={
+              <ProtectedRoute>
+                <Products />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/product/:id"
+            element={
+              <ProtectedRoute>
+                <Product />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/products/add"
+            element={
+              <ProtectedRoute>
+                <AddProduct />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/products/edit/:id"
+            element={
+              <ProtectedRoute>
+                <EditProduct />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+          className="toast-message"
+          style={{ width: "10vw" }}
+        />
+      </div>
+    </Router>
+  );
+}
+
+export default App;
+import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
+import {
+  Users,
+  Orders,
+  Categories,
+  Products,
+  AddProduct,
+  AddCategory,
+  EditProduct,
+  User,
+  Order,
+  Login,
+  AddSubCat,
+  Dashboard,
+  Category,
+  EditCategory,
+  EditSubCat,
+} from "./pages";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Sidebar from "./components/sidebar/Sidebar";
+import Product from "./pages/Product Pages/Product";
+import ProtectedRoute from "./components/protectRoutes/ProtectRoutes";
+
+function App() {
+  return (
+    <Router>
+      <div className="App">
+        <Sidebar />
+        <Routes>
+          <Route path="/login" element={<Login />} exact />
+
+          <Route
+            path="/"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/users"
+            element={
+              <ProtectedRoute>
+                <Users />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/users/:userId"
+            element={
+              <ProtectedRoute>
+                <User />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/orders"
+            element={
+              <ProtectedRoute>
+                <Orders />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/orders/:orderId"
+            element={
+              <ProtectedRoute>
+                <Order />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/categories"
+            element={
+              <ProtectedRoute>
+                <Categories />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/categories/add"
+            element={
+              <ProtectedRoute>
+                <AddCategory />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/category/:id"
+            element={
+              <ProtectedRoute>
+                <Category />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/edit-category/:id"
+            element={
+              <ProtectedRoute>
+                <EditCategory />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/add-sub-category"
+            element={
+              <ProtectedRoute>
+                <AddSubCat />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/category/:id/edit-sub-category/:subCatId"
+            element={
+              <ProtectedRoute>
+                <EditSubCat />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/products"
+            element={
+              <ProtectedRoute>
+                <Products />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/product/:id"
+            element={
+              <ProtectedRoute>
+                <Product />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/products/add"
+            element={
+              <ProtectedRoute>
+                <AddProduct />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/products/edit/:id"
+            element={
+              <ProtectedRoute>
+                <EditProduct />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="colored"
+          className="toast-message"
+          style={{ width: "10vw" }}
+        />
+      </div>
     </Router>
   );
 }

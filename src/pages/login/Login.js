@@ -49,41 +49,47 @@ const Login = () => {
     return <Spinner />;
   }
 
-  if (userInfo) {
+  const userAdmin = localStorage.getItem("userInfo");
+  const admin = JSON.parse(userAdmin);
+  const isAdmin = admin?.isAdmin === true;
+
+  if (isAdmin) {
     navigate("/"); // Redirect to home page if user info exists (logged in)
     return null; // Return null to prevent rendering the login form again
   }
 
   return (
     <div className="login-content">
-      <form onSubmit={loginSubmit} className="login-form">
-        <img src={avatarImage} alt="Avatar" />
-        <h2 className="title">Welcome</h2>
-        <label htmlFor="email">Email</label>
-        <input
-          className={isError ? "input_error" : "loginForm_input"}
-          type="email"
-          name="email"
-          id="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Your email address"
-        />
-        <br />
-        <label htmlFor="password">Password</label>
-        <input
-          className={isError ? "input_error" : "loginForm_input"}
-          type="password"
-          name="password"
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="password"
-        />
-        <button type="submit" className="login-btn">
-          Login
-        </button>
-      </form>
+      {!isAdmin && (
+        <form onSubmit={loginSubmit} className="login-form">
+          <img src={avatarImage} alt="Avatar" />
+          <h2 className="title">Welcome</h2>
+          <label htmlFor="email">Email</label>
+          <input
+            className={isError ? "input_error" : "loginForm_input"}
+            type="email"
+            name="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Your email address"
+          />
+          <br />
+          <label htmlFor="password">Password</label>
+          <input
+            className={isError ? "input_error" : "loginForm_input"}
+            type="password"
+            name="password"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="password"
+          />
+          <button type="submit" className="login-btn">
+            Login
+          </button>
+        </form>
+      )}
     </div>
   );
 };
