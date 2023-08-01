@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Navigate,useHistory
+  Navigate,
 } from "react-router-dom";
 
 import {
@@ -96,33 +96,9 @@ const paths = [
 ];
 
 function App() {
-  const history = useHistory(); // Get access to the history object
-
-  // State to track admin login status
-  const [isLockedInAsAdmin, setIsLockedInAsAdmin] = useState(false);
-
-  // Function to check admin status and update the state
-  const checkAdminStatus = () => {
-    const userInfo = localStorage.getItem("userInfo");
-    const admin = JSON.parse(userInfo);
-    setIsLockedInAsAdmin(admin?.isAdmin === true);
-  };
-
-  useEffect(() => {
-    // Run the checkAdminStatus function when the component mounts
-    checkAdminStatus();
-
-    // Listen for route changes and run the checkAdminStatus function
-    const unlisten = history.listen(() => {
-      checkAdminStatus();
-    });
-
-    // Clean up the listener when the component unmounts
-    return () => {
-      unlisten();
-    };
-  }, [history]); // Pass history as a dependency to rerun the effect when it changes
-
+  const userInfo = localStorage.getItem("userInfo");
+  const admin = JSON.parse(userInfo);
+  const isLockedInAsAdmin = admin?.isAdmin === true;
 
   const Layout = () => {
     return (
@@ -139,9 +115,13 @@ function App() {
 
   return (
     <Router>
-      {!isLockedInAsAdmin ? ( // Use a conditional operator to show content if not locked in
         <div className="App">
+          {isLockedInAsAdmin ? (
           <Layout />
+        ) : (
+          // Redirect to the login page if not locked in as admin
+          <Navigate to="/login" />
+        )}
           <ToastContainer
             position="top-center"
             autoClose={5000}
@@ -157,9 +137,7 @@ function App() {
             style={{ width: "10vw" }}
           />
         </div>
-      ) : (
-        <Navigate to="/login" /> // Redirect to login page if locked in
-      )}
+     
     </Router>
   );
 }
