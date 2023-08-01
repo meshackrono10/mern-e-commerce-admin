@@ -3,7 +3,7 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Navigate,
+  Navigate,useHistory
 } from "react-router-dom";
 
 import {
@@ -96,13 +96,33 @@ const paths = [
 ];
 
 function App() {
-  const [isLockedInAsAdmin, setIsLockedInAsAdmin] = useState(false); // State to track admin login status
+  const history = useHistory(); // Get access to the history object
 
-  useEffect(() => {
+  // State to track admin login status
+  const [isLockedInAsAdmin, setIsLockedInAsAdmin] = useState(false);
+
+  // Function to check admin status and update the state
+  const checkAdminStatus = () => {
     const userInfo = localStorage.getItem("userInfo");
     const admin = JSON.parse(userInfo);
-    setIsLockedInAsAdmin(admin?.isAdmin === true); // Update the state based on admin status
-  }, []);
+    setIsLockedInAsAdmin(admin?.isAdmin === true);
+  };
+
+  useEffect(() => {
+    // Run the checkAdminStatus function when the component mounts
+    checkAdminStatus();
+
+    // Listen for route changes and run the checkAdminStatus function
+    const unlisten = history.listen(() => {
+      checkAdminStatus();
+    });
+
+    // Clean up the listener when the component unmounts
+    return () => {
+      unlisten();
+    };
+  }, [history]); // Pass history as a dependency to rerun the effect when it changes
+
 
   const Layout = () => {
     return (
